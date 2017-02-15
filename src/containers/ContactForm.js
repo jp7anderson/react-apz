@@ -34,9 +34,6 @@ class ContactForm extends Component {
           <fieldset className="form-group">
             <Link to="/" className="btn btn-primary" onClick={() => this.handleSubmit()}>Submit</Link>
           </fieldset>
-          <fieldset className="form-group">
-            <button type="submit" className="btn btn-primary" onClick={() => this.handleSubmit()}>Submit</button>
-          </fieldset>
         </form>
     );
   }
