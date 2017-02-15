@@ -1,1 +1,1 @@
-nano Procfile
+web: node server.js
