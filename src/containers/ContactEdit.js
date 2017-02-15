@@ -5,8 +5,8 @@ import { contactFormUpdate, contactEdit, contactFetchById } from '../actions';
 import ContactForm from '../components/ContactForm';
 
 class ContactEdit extends Component {
-componentWillMount() {
-    const { contactId } = this.props.params;
+  componentWillMount() {
+    const { contactId } = this.props.match.params;
     this.props.onLoad(contactId);
   }
 

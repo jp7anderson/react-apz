@@ -50,7 +50,6 @@ export const contactEdit = contact => dispatch => {
     },
     body: JSON.stringify(contact)
   })
-    .then(response => response.json())
     .then(() => dispatch({
       type: 'CONTACT_EDIT',
       contact
@@ -61,7 +60,6 @@ export const contactDelete = id => dispatch => {
   fetch(`/contacts/${id}`, {
     method: "DELETE"
   })
-    .then(response => response.json())
     .then(() => dispatch({
       type: 'CONTACT_DELETE',
       id
