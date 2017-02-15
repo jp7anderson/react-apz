@@ -1,18 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import { contactFormUpdate, contactEdit } from '../actions';
+import { contactFormUpdate, contactEdit, contactFetchById } from '../actions';
 import ContactForm from '../components/ContactForm';
 
 class ContactEdit extends Component {
-  componentWillMount() {
-    const { contactId } = this.props.match.params;
-
-    const contact = this.props.contactList.find(c => c.id === contactId);
-
-    Object.keys(contact).forEach(key =>
-      this.props.onChange({ prop: key, value: contact[key] })
-    );
+componentWillMount() {
+    const { contactId } = this.props.params;
+    this.props.onLoad(contactId);
   }
 
   handleSubmit() {
@@ -34,11 +29,11 @@ class ContactEdit extends Component {
 }
 
 const mapStateToProps = state => ({
-    ...state.contactForm,
-    contactList: state.contacts.contactList
+  ...state.contactForm
 });
 
 const mapDispatchToProps = dispatch => ({
+  onLoad: id => dispatch(contactFetchById(id)),
   onChange: ({ prop, value }) => dispatch(contactFormUpdate({ prop, value })),
   onSubmit: contact => dispatch(contactEdit(contact))
 });

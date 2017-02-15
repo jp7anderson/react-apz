@@ -1,5 +1,3 @@
-import uuid from 'uuid';
-
 export const contactFormUpdate = ({ prop, value }) => ({
   type: 'CONTACT_FORM_UPDATE',
   payload: {
@@ -8,20 +6,64 @@ export const contactFormUpdate = ({ prop, value }) => ({
   }
 });
 
-export const contactAdd = contact => ({
-  type: 'CONTACT_ADD',
-  contact: {
-    id: uuid.v4(),
-    ...contact
-  }
-});
+export const contactFetch = () => dispatch => {
+  fetch('/contacts')
+    .then(response => response.json())
+    .then(json => {
+      dispatch({
+        type: 'CONTACT_FETCH',
+        contacts: json
+      });
+    });
+};
 
-export const contactDelete = index => ({
-  type: 'CONTACT_DELETE',
-  index
-});
+export const contactFetchById = id => dispatch => {
+  fetch(`/contacts/${id}`)
+    .then(response => response.json())
+    .then(json => {
+      Object.keys(json).forEach(key =>
+        dispatch(contactFormUpdate({ prop: key, value: json[key] }))
+      );
+    });
+};
 
-export const contactEdit = contact => ({
-  type: 'CONTACT_EDIT',
-  contact
-});
+export const contactAdd = contact => dispatch => {
+  fetch('/contacts', {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(contact)
+  })
+    .then(response => response.json())
+    .then(() => dispatch({
+      type: 'CONTACT_ADD',
+      contact
+    }));
+};
+
+export const contactEdit = contact => dispatch => {
+  fetch(`/contacts/${contact.id}`, {
+    method: "PUT",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(contact)
+  })
+    .then(response => response.json())
+    .then(() => dispatch({
+      type: 'CONTACT_EDIT',
+      contact
+    }));
+};
+
+export const contactDelete = id => dispatch => {
+  fetch(`/contacts/${id}`, {
+    method: "DELETE"
+  })
+    .then(response => response.json())
+    .then(() => dispatch({
+      type: 'CONTACT_DELETE',
+      id
+    }));
+};
