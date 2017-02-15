@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import logo from './logo.svg';
 import ContactList from './containers/ContactList';
-import ContactForm from './containers/ContactForm';
+import ContactCreate from './containers/ContactCreate';
+import ContactEdit from './containers/ContactEdit';
 import './App.css';
 
 class App extends Component {
@@ -22,7 +22,8 @@ class App extends Component {
             <h2>Contacts Manager</h2>
             <div className="container">
               <Route exact path="/" component={ContactList} />
-              <Route path="/new" component={ContactForm} />
+              <Route path="/new" component={ContactCreate} />
+              <Route path="/edit/:contactId" component={ContactEdit} />
             </div>
           </section>
         </div>

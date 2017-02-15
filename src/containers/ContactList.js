@@ -18,16 +18,19 @@ class ContactList extends Component {
               <th>Name</th>
               <th>Phone</th>
               <th>Email</th>
-              <th>&nbsp;</th>
+              <th colSpan={2}>&nbsp;</th>
             </tr>
           </thead>
           <tbody>
             {
-              this.props.contactList.map(({ name, phone, email }, index) => (
+              this.props.contactList.map(({ id, name, phone, email }, index) => (
                    <tr key={index}>
                     <td>{name}</td>
                     <td>{phone}</td>
                     <td>{email}</td>
+                    <td>
+                      <Link to={`/edit/${id}`} className="btn btn-primary">Edit</Link>
+                    </td>
                     <td>
                       <Button
                         buttonType="btn-danger"
@@ -54,4 +57,4 @@ const mapDispatchToProps = dispatch => ({
   onClickDelete: index => dispatch(contactDelete(index))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ContactList);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ContactList));

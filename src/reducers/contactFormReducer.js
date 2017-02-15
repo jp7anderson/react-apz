@@ -12,6 +12,7 @@ export const contactFormReducer = (state = initialState, action) => {
           [action.payload.prop]: action.payload.value
       };
   case 'CONTACT_ADD':
+  case 'CONTACT_EDIT':
     return {
       ...state,
       ...initialState
