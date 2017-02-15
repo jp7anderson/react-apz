@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const { MongoClient, ObjectID } = require('mongodb');
+const path = require('path');
 
 try {
   const env = require('dotenv');
@@ -13,6 +14,7 @@ catch(e) {
 
 const app = express();
 app.use(bodyParser.json());
+app.use(express.static(path.resolve(__dirname, 'build')));
 
 var db;
 const COLLECTION = "contacts";
@@ -119,3 +121,7 @@ const handleError = (res, reason, message, code) => {
   console.log('Error: %s', reason);
   res.status(code || 500).json({ error: message });
 };
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
+});
