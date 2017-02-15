@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link, withRouter } from 'react-router-dom';
 
 class ContactList extends Component {
   render() {
     return (
       <div>
         <h1>Contacts</h1>
+        <Link to="/new">
+          Create new Contact
+        </Link>
         <table className="table table-striped table-responsive">
           <thead>
             <tr>
